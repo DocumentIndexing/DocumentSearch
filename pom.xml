@@ -16,7 +16,7 @@
                 <executions>
                     <execution>
                         <id>image-push</id>
-                        <phase>deploy</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>push</goal>
                         </goals>
@@ -35,6 +35,7 @@
                             <name>guidof/documentindexer-searchui:%l</name>
                             <build>
                                 <dockerFileDir>.</dockerFileDir>
+                                <nocache>true</nocache>
                                 <tags>
                                     <tag>${project.version}</tag>
                                 </tags>

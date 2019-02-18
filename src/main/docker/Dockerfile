@@ -1,8 +1,10 @@
 FROM guidof/angular-build:latest as builder
 COPY maven/angular /angular
 
+
 RUN cd /angular/ && \
-    ng build --prod=true
+    npm install && \
+    ng build --prod=false	
 
 FROM nginx:alpine
 COPY --from=builder /angular/dist/DocumentSearchUI /usr/share/nginx/html
