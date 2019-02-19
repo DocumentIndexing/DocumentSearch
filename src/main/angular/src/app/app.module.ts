@@ -7,6 +7,7 @@ import {SearchComponent} from './search/search.component';
 import {SearchFormComponent} from './search-form/search-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
+import {SearchService} from './search.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
     ReactiveFormsModule,
     AngularFontAwesomeModule
   ],
-  providers: [],
+  providers: [SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
