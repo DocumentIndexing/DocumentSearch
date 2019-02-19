@@ -12,24 +12,36 @@ import {FormBuilder} from '@angular/forms';
 })
 export class SearchFormComponent implements OnInit {
   @Input() searchable: Searchable;
-  searchFilter = new SearchFilter();
-
   formGroup = this.fb.group({
-    terms: [''],
+    term: [''],
     highlight: [''],
   });
 
-  constructor(private fb: FormBuilder) {  }
+  constructor(private fb: FormBuilder) {
+  }
 
   ngOnInit() {
+  }
+
+  buildFilter(): SearchFilter {
+    const searchFilter = new SearchFilter();
+    const highlightCheckbox = 'highlight';
+    const termField = 'term';
+
+    searchFilter.hightlight = this.getCriteria(highlightCheckbox);
+    searchFilter.term = this.getCriteria(termField);
+    return searchFilter;
+  }
+
+
+  private getCriteria(highlightCheckbox: string) {
+    return this.formGroup.get(highlightCheckbox).value;
   }
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.formGroup.value);
-    //
-    // searchFilter.from(this.formGroup.value.)
-    //
-    // this.searchable(this.formGroup);
+
+    this.searchable.search(this.buildFilter());
   }
 }

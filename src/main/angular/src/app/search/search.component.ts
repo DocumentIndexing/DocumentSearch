@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {SearchResults} from '../model/searchResponse';
 import {Searchable} from '../model/searchable';
 import {SearchFilter} from '../model/searchFilter';
+import {SearchService} from '../search.service';
 
 @Component({
   selector: 'app-search',
@@ -12,7 +12,7 @@ export class SearchComponent implements OnInit, Searchable {
 
   searchable = this;
 
-  constructor() {
+  constructor(private searchService: SearchService) {
   }
 
   ngOnInit() {
@@ -20,6 +20,7 @@ export class SearchComponent implements OnInit, Searchable {
 
   search(filter: SearchFilter): void {
     console.log(filter);
+    // this.searchService.search(filter).subscribe(s => console.log(s));
   }
 
 }
