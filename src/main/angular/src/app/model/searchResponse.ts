@@ -2,6 +2,7 @@ export class SearchResults {
   took: number;
   timedOut: boolean;
   '_shards': Shards;
+  hits: SearchHits;
 
 }
 
@@ -20,11 +21,21 @@ export class SearchHits {
 }
 
 export class SearchHit {
-  index: string;
-  type: string;
-  id: string;
-  highlight: {};
+  '_id': string;
+  '_index': string;
+  '_type': string;
+  '_score': number;
+  '_source': Source;
+  highlight: Highlight;
 }
 
 export class Source {
+  title: string;
+}
+
+export class Highlight {
+  title: string[];
+  description: string[];
+  content: string[];
+  subtitle: string[];
 }

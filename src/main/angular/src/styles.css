@@ -1,10 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
-.header {
-  background-color: beige;
-  text-align: center;
+.bg-primary {
+  background: beige !important;
+}
+.bg-secondary {
+  background: gainsboro !important;
 }
 
-.body {
-  background-color: beige;
+.border-primary {
+  border-color: beige !important;
 }

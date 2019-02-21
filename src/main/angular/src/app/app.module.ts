@@ -8,6 +8,7 @@ import {SearchFormComponent} from './search-form/search-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {SearchService} from './search.service';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {SearchService} from './search.service';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    InfiniteScrollModule
   ],
   providers: [SearchService],
   bootstrap: [AppComponent]

@@ -1,3 +1,118 @@
-  <app-search-form [searchable]="searchable" class="m-0" ></app-search-form><p>
+<div
+  class="search-results"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()">
 
+  <app-search-form [searchable]="searchable" class="m-0"></app-search-form>
+  <div *ngIf="totalHits">
+    <div class="row justify-content-end">
+      <div>Total Hits: {{totalHits}}</div>
+    </div>
+  </div>
+  <section *ngFor="let hit of hits" class="row m-2">
+    <div class="col-12 bg-secondary">
+      <div class="row align-content-between">
+        <div class="col-10"><h5>Title: <em>{{hit._source.title}}</em></h5></div>
+        <div class="col-2 d-flex justify-content-end">
+          <small>Score: <em>{{hit._score}}</em></small>
+        </div>
+      </div>
+      <div *ngIf="hit.highlight">
+        <h6>Matching Content:</h6>
+        <div class="accordion" id="{{'accordianHighlight-'+hit._id}}">
+          <div *ngIf="hit.highlight.title">
+            <div class="card">
+              <div class="card-header p-0" id="headingTitleHighlight">
+                <h6 class="mb-0">
+                  <button class="btn btn-link collapsed"
+                          type="button"
+                          data-toggle="collapse"
+                          [attr.data-target]="'#collapseTitleHighlight'+hit._id"
+                          aria-expanded="false"
+                          [attr.aria-controls]="'collapseTitleHighlight'+hit._id">
+                    Title
+                  </button>
+                </h6>
+              </div>
+              <div id="{{'collapseTitleHighlight'+hit._id}}"
+                   class="collapse"
+                   [attr.aria-labelledby]="'collapseTitleHighlight'+hit._id"
+                   [attr.data-parent]="'#accordianHighlight-'+hit._id">
+                <div class="card-body p-1 size" [innerHTML]="getHighlights(hit.highlight.title)">>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="hit.highlight.subtitle">
+            <div class="card">
+              <div class="card-header p-0" id="headingSubtitleHighlight">
+                <h6 class="mb-0">
+                  <button class="btn btn-link collapsed"
+                          type="button"
+                          data-toggle="collapse"
+                          [attr.data-target]="'#collapseSubtitleHighlight'+hit._id"
+                          aria-expanded="false"
+                          [attr.aria-controls]="'collapseSubtitleHighlight'+hit._id">
+                    Subtitle
+                  </button>
+                </h6>
+              </div>
+              <div id="{{'collapseSubtitleHighlight'+hit._id}}" class="collapse"
+                   [attr.aria-labelledby]="'collapseSubtitleHighlight'+hit._id"
+                   [attr.data-parent]="'#accordianHighlight-'+hit._id">
+                <div class="card-body p-1" [innerHTML]="getHighlights(hit.highlight.subtitle)">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="hit.highlight.description">
+            <div class="card">
+              <div class="card-header p-0" id="headingDescriptionHighlight">
+                <h6 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                          [attr.data-target]="'#collapseDescriptionHighlight'+hit._id"
+                          aria-expanded="false"
+                          [attr.aria-controls]="'collapseDescriptionHighlight'+hit._id">
+                    Description
+                  </button>
+                </h6>
+              </div>
+              <div id="{{'collapseDescriptionHighlight'+hit._id}}" class="collapse"
+                   [attr.aria-labelledby]="'collapseDescriptionHighlight'+hit._id"
+                   [attr.data-parent]="'#accordianHighlight-'+hit._id">
+                <div class="card-body p-1" [innerHTML]="getHighlights(hit.highlight.description)">>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="hit.highlight.content">
+            <div class="card">
+              <div class="card-header p-0" id="headingContentHighlight">
+                <h6 class="mb-0">
+                  <button class="btn btn-link collapsed"
+                          type="button"
+                          data-toggle="collapse"
+                          [attr.data-target]="'#collapseContentHighlight'+hit._id"
+                          aria-expanded="false"
+                          [attr.aria-controls]="'collapseContentHighlight'+hit._id">
+                    Content
+                  </button>
+                </h6>
+              </div>
+              <div id="{{'collapseContentHighlight'+hit._id}}"
+                   class="collapse"
+                   [attr.aria-labelledby]="'collapseContentHighlight'+hit._id"
+                   [attr.data-parent]="'#accordianHighlight-'+hit._id">
+                <div class="card-body p-1" [innerHTML]="getHighlights(hit.highlight.content)">>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+</div>

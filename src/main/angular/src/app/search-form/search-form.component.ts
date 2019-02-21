@@ -12,6 +12,7 @@ import {FormBuilder} from '@angular/forms';
 })
 export class SearchFormComponent implements OnInit {
   @Input() searchable: Searchable;
+
   formGroup = this.fb.group({
     term: [''],
     highlight: [''],

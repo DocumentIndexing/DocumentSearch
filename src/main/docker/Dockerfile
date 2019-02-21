@@ -4,7 +4,7 @@ COPY maven/angular /angular
 
 RUN cd /angular/ && \
     npm install && \
-    ng build --prod=false	
+    ng build --prod=
 
 FROM nginx:alpine
 COPY --from=builder /angular/dist/DocumentSearchUI /usr/share/nginx/html
