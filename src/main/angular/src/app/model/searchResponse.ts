@@ -34,8 +34,32 @@ export class Source {
 }
 
 export class Highlight {
-  title: string[];
+  private '_subtitle.analyzed': string[];
+  private '_title.analyzed': string[];
   description: string[];
   content: string[];
-  subtitle: string[];
+
+  get 'subtitle.analyzed'(): string[] {
+    return this['_subtitle.analyzed'];
+  }
+
+  set 'subtitle.analyzed'(value: string[]) {
+    this['_subtitle.analyzed'] = value;
+  }
+
+  get subtitle(): string[] {
+    return this['_subtitle.analyzed'];
+  }
+  get 'title.analyzed'(): string[] {
+    return this['_title.analyzed'];
+  }
+
+  set 'title.analyzed'(value: string[]) {
+    this['_title.analyzed'] = value;
+  }
+
+  get title(): string[] {
+    return this['_title.analyzed'];
+  }
+
 }

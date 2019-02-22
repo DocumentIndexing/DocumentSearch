@@ -29,7 +29,7 @@ export class SearchFormComponent implements OnInit {
     const highlightCheckbox = 'highlight';
     const termField = 'term';
 
-    searchFilter.hightlight = this.getCriteria(highlightCheckbox);
+    searchFilter.highlight = this.getCriteria(highlightCheckbox);
     searchFilter.term = this.getCriteria(termField);
     return searchFilter;
   }

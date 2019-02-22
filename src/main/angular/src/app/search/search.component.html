@@ -22,7 +22,7 @@
       <div *ngIf="hit.highlight">
         <h6>Matching Content:</h6>
         <div class="accordion" id="{{'accordianHighlight-'+hit._id}}">
-          <div *ngIf="hit.highlight.title">
+          <div *ngIf="hit.highlight['title.analyzed']">
             <div class="card">
               <div class="card-header p-0" id="headingTitleHighlight">
                 <h6 class="mb-0">
@@ -40,12 +40,12 @@
                    class="collapse"
                    [attr.aria-labelledby]="'collapseTitleHighlight'+hit._id"
                    [attr.data-parent]="'#accordianHighlight-'+hit._id">
-                <div class="card-body p-1 size" [innerHTML]="getHighlights(hit.highlight.title)">>
+                <div class="card-body p-1 size" [innerHTML]="getHighlights(hit.highlight['title.analyzed'])">
                 </div>
               </div>
             </div>
           </div>
-          <div *ngIf="hit.highlight.subtitle">
+          <div *ngIf="hit.highlight['subtitle.analyzed']">
             <div class="card">
               <div class="card-header p-0" id="headingSubtitleHighlight">
                 <h6 class="mb-0">
@@ -62,7 +62,7 @@
               <div id="{{'collapseSubtitleHighlight'+hit._id}}" class="collapse"
                    [attr.aria-labelledby]="'collapseSubtitleHighlight'+hit._id"
                    [attr.data-parent]="'#accordianHighlight-'+hit._id">
-                <div class="card-body p-1" [innerHTML]="getHighlights(hit.highlight.subtitle)">
+                <div class="card-body p-1" [innerHTML]="getHighlights(hit.highlight['subtitle.analyzed'])">
                 </div>
               </div>
             </div>

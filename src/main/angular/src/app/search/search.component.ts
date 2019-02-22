@@ -30,8 +30,15 @@ export class SearchComponent implements OnInit, Searchable {
   }
 
   private query(filter: SearchFilter) {
+
     this.searchService.search(filter).subscribe(s => {
-      s.hits.hits.forEach(h => this.hits.push(h));
+      console.log(s);
+      s.hits.hits.forEach(h => {
+        console.log('title:' + h.highlight['title.analyzed']);
+        console.log('subtitle:' + h.highlight['subtitle.analyzed']);
+        return this.hits.push(h);
+      });
+
       this.totalHits = s.hits.total;
       console.log('Added  ' + s.hits.hits.length + ' resulting in : ' + this.hits.length);
     });
