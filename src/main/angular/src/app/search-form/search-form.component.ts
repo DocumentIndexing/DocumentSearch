@@ -35,8 +35,8 @@ export class SearchFormComponent implements OnInit {
   }
 
 
-  private getCriteria(highlightCheckbox: string) {
-    return this.formGroup.get(highlightCheckbox).value;
+  private getCriteria(inputName: string) {
+    return this.formGroup.get(inputName).value;
   }
 
   onSubmit() {
