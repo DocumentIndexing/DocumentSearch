@@ -9,12 +9,14 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {SearchService} from './search.service';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
-    SearchFormComponent
+    SearchFormComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
