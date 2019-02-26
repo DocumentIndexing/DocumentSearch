@@ -1,0 +1,16 @@
+  <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()">
+    <div>
+      <label class="col-1">Title:</label>
+      <input class="col-3" name="Title" type="text" >
+      <label class="col-2">File</label>
+      <input class='col-3' type="file" >
+    </div>
+    <div>
+      <label class="col-1">Subtitle:</label>
+      <input class="col-3" name ="Subtitle" type="text">
+      <label class="col-2">Upload:</label>
+        <button class="col-2" type="submit" [disabled]="formGroup.invalid || formGroup.prestine">Submit</button>
+    </div>
+
+
+  </form>
