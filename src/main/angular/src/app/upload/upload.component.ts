@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
+import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-upload',
@@ -8,8 +8,7 @@ import {FormBuilder} from '@angular/forms';
 })
 export class UploadComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
-
+  loading: boolean = false;
   formGroup = this.fb.group({
     file: [''],
     title: [''],
@@ -17,22 +16,40 @@ export class UploadComponent implements OnInit {
 
   });
 
+  @ViewChild('fileInput') fileInput: ElementRef;
+
+  constructor(private fb: FormBuilder) { }
+
   onFileChange(event) {
-    const reader = new FileReader();
+    if(event.target.files.length > 0) {
+      let file = event.target.files[0];
+      this.formGroup.get('file').setValue(file);
+    }
+  }
 
-    if(event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
+  private prepareSave(): any {
+    const input = new FormData();
+    input.append('title', this.formGroup.get('title').value);
+    input.append('subtitle', this.formGroup.get('subtitle').value);
+    input.append('file', this.formGroup.get('file').value);
+    return input;
+  }
 
-      reader.onload = () => {
-        this.formGroup.patchValue({
-          file: reader.result
-       });
+  onSubmit() {
+    const formModel = this.prepareSave();
+    this.loading = true;
+    // In a real-world app you'd have a http request / service call here like
+    // this.http.post('apiUrl', formModel)
+    setTimeout(() => {
+      // FormData cannot be inspected (see "Key difference"), hence no need to log it here
+      alert('done!');
+      this.loading = false;
+    }, 1000);
+  }
 
-        // need to run CD since file load runs outside of zone
-        //this.cd.markForCheck();
-      };
-    };
+  clearFile() {
+    this.formGroup.get('avatar').setValue(null);
+    this.fileInput.nativeElement.value = '';
   }
 
 
