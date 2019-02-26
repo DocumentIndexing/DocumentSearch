@@ -8,6 +8,7 @@ import {SearchFormComponent} from './search-form/search-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {SearchService} from './search.service';
+import {UploadService} from './upload.service';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { UploadComponent } from './upload/upload.component';
 
@@ -26,7 +27,7 @@ import { UploadComponent } from './upload/upload.component';
     AngularFontAwesomeModule,
     InfiniteScrollModule
   ],
-  providers: [SearchService],
+  providers: [SearchService, UploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

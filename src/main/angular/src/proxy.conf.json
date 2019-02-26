@@ -16,5 +16,14 @@
     "pathRewrite": {
       "^/elastic": ""
     }
+  },
+  "/index/*": {
+    "target": "http://localhost:8080/",
+    "logLevel": "debug",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/index": ""
+    }
   }
 }
