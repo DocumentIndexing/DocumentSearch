@@ -1,5 +1,5 @@
 import {FormBuilder} from '@angular/forms';
-import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UploadService} from '../upload.service';
 
 @Component({
@@ -19,21 +19,23 @@ export class UploadComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput: ElementRef;
 
-  constructor(private fb: FormBuilder, private upload: UploadService) { }
-
-  onFileChange(event) {
-    if(event.target.files.length > 0) {
-      let file = event.target.files[0];
-      this.formGroup.get('file').setValue(file);
-    }
+  constructor(private fb: FormBuilder, private upload: UploadService) {
   }
 
-  private prepareSave(): any {
-    const input = new FormData();
-    input.append('title', this.formGroup.get('title').value);
-    input.append('subtitle', this.formGroup.get('subtitle').value);
-    input.append('file', this.formGroup.get('file').value);
-    return input;
+  onFileChange(event) {
+    let reader = new FileReader();
+    if (event.target.files.length > 0) {
+
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.formGroup.get('file').setValue({
+          filename: file.name,
+          filetype: file.type,
+          value: reader.result
+        })
+      };
+    }
   }
 
   onSubmit() {
@@ -53,8 +55,15 @@ export class UploadComponent implements OnInit {
     this.fileInput.nativeElement.value = '';
   }
 
-
   ngOnInit() {
+  }
+
+  private prepareSave(): any {
+    const input = new FormData();
+    input.append('title', this.formGroup.get('title').value);
+    input.append('subtitle', this.formGroup.get('subtitle').value);
+    input.append('file', this.formGroup.get('file').value);
+    return input;
   }
 
 }
