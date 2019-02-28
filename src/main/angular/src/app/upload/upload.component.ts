@@ -23,18 +23,13 @@ export class UploadComponent implements OnInit {
   }
 
   onFileChange(event) {
-    let reader = new FileReader();
+    // const reader = new FileReader();
     if (event.target.files.length > 0) {
-
-      let file = event.target.files[0];
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.formGroup.get('file').setValue({
-          filename: file.name,
-          filetype: file.type,
-          value: reader.result
-        })
-      };
+      const file = event.target.files[0];
+      // reader.readAsDataURL(file);
+      // reader.onload = () => {
+        this.formGroup.get('file').setValue(file);
+      // };
     }
   }
 
