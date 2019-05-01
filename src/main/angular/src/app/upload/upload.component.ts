@@ -16,32 +16,28 @@ export class UploadComponent implements OnInit {
     subtitle: [''],
 
   });
-
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(private fb: FormBuilder, private upload: UploadService) {
   }
 
+  ngOnInit() {
+  }
+
   onFileChange(event) {
-    let reader = new FileReader();
     if (event.target.files.length > 0) {
 
       let file = event.target.files[0];
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.formGroup.get('file').setValue({
-          filename: file.name,
-          filetype: file.type,
-          value: reader.result
-        })
-      };
+      this.formGroup.get('file').setValue(file);
     }
+
   }
 
   onSubmit() {
     const formModel = this.prepareSave();
     this.loading = true;
     // In a real-world app you'd have a http request / service call here like
+
     this.upload.send(formModel);
     setTimeout(() => {
       // FormData cannot be inspected (see "Key difference"), hence no need to log it here
@@ -55,10 +51,8 @@ export class UploadComponent implements OnInit {
     this.fileInput.nativeElement.value = '';
   }
 
-  ngOnInit() {
-  }
 
-  private prepareSave(): any {
+  private prepareSave(): FormData {
     const input = new FormData();
     input.append('title', this.formGroup.get('title').value);
     input.append('subtitle', this.formGroup.get('subtitle').value);

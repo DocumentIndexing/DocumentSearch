@@ -8,8 +8,8 @@ export class UploadService {
   constructor(private http: HttpClient) {
   }
 
-  send(data: any) {
+  send(data: FormData) {
     console.log('we are hitting the sesnd data');
-    this.http.post<any>('/index/upload', data).subscribe(error => console.log(error.toString));
+    this.http.post('/index/upload', data).subscribe(error => console.log(error.toString));
   }
 }
