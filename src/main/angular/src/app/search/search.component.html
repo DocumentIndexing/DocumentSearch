@@ -6,9 +6,9 @@
   (scrolled)="onScroll()">
 
   <app-search-form [searchable]="searchable" class="m-0"></app-search-form>
-  <div *ngIf="totalHits">
+  <div>
     <div class="row justify-content-end">
-      <div>Total Hits: {{totalHits}}</div>
+      <div>{{getSearchMessage()}}</div>
     </div>
   </div>
   <section *ngFor="let hit of hits" class="row m-2">

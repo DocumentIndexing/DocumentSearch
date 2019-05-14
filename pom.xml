@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.g4pas.index.document.angular</groupId>
     <artifactId>DocumentSearchUI</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <build>
         <plugins>
@@ -16,7 +16,7 @@
                 <executions>
                     <execution>
                         <id>image-push</id>
-                        <phase>install</phase>
+                        <phase>deploy</phase>
                         <goals>
                             <goal>push</goal>
                         </goals>
@@ -32,7 +32,7 @@
                     <verbose>true</verbose>
                     <images>
                         <image>
-                            <name>guidof/documentindexer-searchui:%l</name>
+                            <name>documentindexer-searchui:%l</name>
                             <build>
                                 <dockerFileDir>.</dockerFileDir>
                                 <nocache>true</nocache>

@@ -29,6 +29,15 @@ export class SearchComponent implements OnInit, Searchable {
     this.query(filter);
   }
 
+  getSearchMessage(): string {
+    var message:string = "";
+    if (this.filter != null && this.filter.term != null) {
+        message = "Total Hits (" + this.filter.term + "): " + this.totalHits;
+    }
+
+    return message;
+  }
+
   private query(filter: SearchFilter) {
 
     this.searchService.search(filter).subscribe(s => {
