@@ -15,13 +15,6 @@
                 <extensions>true</extensions>
                 <executions>
                     <execution>
-                        <id>image-push</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>push</goal>
-                        </goals>
-                    </execution>
-                    <execution>
                         <phase>generate-resources</phase>
                         <goals>
                             <goal>build</goal>
@@ -32,13 +25,15 @@
                     <verbose>true</verbose>
                     <images>
                         <image>
-                            <name>documentindexer-searchui:%l</name>
-                            <build>
-                                <dockerFileDir>.</dockerFileDir>
-                                <nocache>true</nocache>
-                                <tags>
-                                    <tag>${project.version}</tag>
-                                </tags>
+                          <name>${dockerhub.image.name}</name>
+                          <alias>searchui</alias>
+                          <build>
+                              <dockerFileDir>.</dockerFileDir>
+                              <nocache>true</nocache>
+                              <tags>
+                                  <tag>${project.version}</tag>
+                                  <tag>latest</tag>
+                              </tags>
                                 <assembly>
                                     <inline>
                                         <fileSets>
@@ -58,8 +53,51 @@
                     </images>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <executions>
+                    <execution>
+                        <id>tag-dockerhub-version</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <image>${dockerhub.image.name}:${project.version}</image>
+                            <newName>${dockerhub.project}/${dockerhub.image.name}:${project.version}</newName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>tag-dockerhub-latest</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <image>${dockerhub.image.name}:${project.version}</image>
+                            <newName>${dockerhub.project}/${dockerhub.image.name}:latest</newName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>push-image</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${dockerhub.project}/${dockerhub.image.name}:${project.version}</imageName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+    <properties>
+      <dockerhub.project>guidof</dockerhub.project>
+      <dockerhub.image.name>documentindexer-searchquery</dockerhub.image.name>
+    </properties>
     <scm>
         <connection>scm:git:git@github.com:DocumentIndexing/DocumentSearchUI.git</connection>
         <developerConnection>scm:git:git@github.com:DocumentIndexing/DocumentSearchUI.git</developerConnection>
@@ -78,4 +116,3 @@
         </snapshotRepository>
     </distributionManagement>
 </project>
-
